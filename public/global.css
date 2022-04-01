@@ -1,0 +1,28 @@
+:root {
+  --icon-size: 64px;
+  --icon-color: rgb(26, 206, 197);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+    'Helvetica Neue', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+path {
+	width: 100%;
+	height: 100%;
+  fill: var(--icon-color);
+}

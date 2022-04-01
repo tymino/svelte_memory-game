@@ -1,14 +1,23 @@
 <script>
-  import Icon from './Icon.svelte';
+  import Icon from './components/Icon.svelte';
+  import Button from './components/Button.svelte';
 
 </script>
 
 <main>
   <h1>Hello name!</h1>
 
-  <div class="wrapper">
-    <Icon name="man" />
-  </div>
+  <!-- <div class="wrapper">
+    <Icon index="0" />
+  </div> -->
+
+	<br>
+	<div class="wrapper">
+		<Button />
+		<Button />
+		<Button />
+		<Button />
+	</div>
 </main>
 
 <style>
@@ -22,8 +31,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-		width: 64px;
-		height: 64px;
+		width: 400px;
+		height: 400px;
     border: 1px solid black;
   }
 

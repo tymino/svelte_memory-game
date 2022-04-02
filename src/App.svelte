@@ -13,10 +13,9 @@
 
 	<br>
 	<div class="wrapper">
-		<Button />
-		<Button />
-		<Button />
-		<Button />
+		<Button type='active' name='1' />
+		<Button type='primary' style='color: var(--color-dark)' />
+		<Button type='secondary' />
 	</div>
 </main>
 

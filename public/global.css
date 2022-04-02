@@ -1,6 +1,10 @@
 :root {
   --icon-size: 64px;
-  --icon-color: rgb(26, 206, 197);
+
+  --color-dark: #162938;
+  --color-light: #fcfcfc;
+  --color-primary: #bbcfda;
+  --color-secondary: #fda215;
 }
 
 * {
@@ -24,5 +28,5 @@ body {
 path {
 	width: 100%;
 	height: 100%;
-  fill: var(--icon-color);
+  fill: var(--color-light);
 }

@@ -5,6 +5,9 @@
   --color-light: #fcfcfc;
   --color-primary: #bbcfda;
   --color-secondary: #fda215;
+  
+  --color-primary-hover: #b7c9d3;
+  --color-secondary-hover: #f59c17;
 }
 
 * {
@@ -21,7 +24,6 @@ html {
 
 body {
   margin: 0;
-  padding: 8px;
   box-sizing: border-box;
 }
 

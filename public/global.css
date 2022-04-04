@@ -5,7 +5,7 @@
   --color-light: #fcfcfc;
   --color-primary: #bbcfda;
   --color-secondary: #fda215;
-  
+
   --color-primary-hover: #b7c9d3;
   --color-secondary-hover: #f59c17;
 }
@@ -28,7 +28,7 @@ body {
 }
 
 path {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
   fill: var(--color-light);
 }

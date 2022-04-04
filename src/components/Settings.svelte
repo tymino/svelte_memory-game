@@ -1,7 +1,7 @@
 <script>
   import Button from './Button.svelte';
 
-  import { gameSettings } from '../store';
+  import { isGameRun, gameSettings } from '../store';
 
   const handleSwitchSetting = (event) => {
     gameSettings.update((settings) => {
@@ -13,6 +13,10 @@
       });
     });
   };
+
+  const handleStartGame = () => {
+    isGameRun.set(true);
+  }
 </script>
 
 <div class="settings">
@@ -24,12 +28,14 @@
           {#if option.active === title}
             <Button id={option.id} name={title} type="active" />
           {:else}
-            <Button id={option.id} name={title} on:toggle={handleSwitchSetting} />
+            <Button id={option.id} name={title} on:customClick={handleSwitchSetting} />
           {/if}
         {/each}
       </div>
     </div>
   {/each}
+
+  <Button name='Start Game' type="secondary" on:customClick={handleStartGame} />
 </div>
 
 <style>

@@ -2,16 +2,16 @@
   import { createEventDispatcher } from 'svelte';
 
   // primary, secondary, active, default
-  export let id;
+  export let id = '';
   export let name = 'none';
   export let type = 'primary';
   export let style = '';
 
   const dispatch = createEventDispatcher();
-  const toggle = () => dispatch('toggle', { id, name });
+  const handleClick = () => dispatch('customClick', { id, name });
 </script>
 
-<button class={type} {style} on:click={toggle}>{name}</button>
+<button class={type} {style} on:click={handleClick}>{name}</button>
 
 <style>
   button {
@@ -39,5 +39,8 @@
   }
   .secondary {
     background: var(--color-secondary);
+  }
+  .secondary:hover {
+    background: var(--color-secondary-hover);
   }
 </style>

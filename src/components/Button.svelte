@@ -20,6 +20,8 @@
     border: none;
     border-radius: 20px;
     color: var(--color-light);
+    font-family: var(--font-family);
+    font-size: 1rem;
   }
   button:not(.active) {
     cursor: pointer;

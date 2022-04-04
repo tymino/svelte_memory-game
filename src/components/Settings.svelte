@@ -50,6 +50,8 @@
   }
   .option__name {
     margin-bottom: 12px;
+    color: var(--color-primary);
+    font-size: 0.9rem;
   }
   .option__buttons {
     display: flex;

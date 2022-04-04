@@ -6,10 +6,11 @@
 
   --color-dark: #162938;
   --color-light: #fcfcfc;
-  --color-primary: #b5ccd8;
+  --color-primary: #dbe9f1;
+  --color-text: #70a0c5;
   --color-secondary: #fda215;
 
-  --color-primary-hover: #b7c9d3;
+  --color-primary-hover: #d9e5ec;
   --color-secondary-hover: #f59c17;
 }
 

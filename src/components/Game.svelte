@@ -5,14 +5,35 @@
   import Info from './Info.svelte';
 
   import { onMount } from 'svelte';
-  import { isGameRun, gridIcon, gridVisible, iconDB } from '../store';
+  import { isGameRun, gameSettings, gridIcon, gridVisible, iconDB } from '../store';
 
   let countTime = 0;
   let timeElapsed = '00:00';
   let gameMoves = 0;
 
   const setupGrid = () => {
-    // countTime = 0;
+    const size = $gameSettings[1].active.split('x').map((str) => Number(str));
+    const totalOfPairs = size.reduce((s, n) => s * n);
+    const countOfPair = totalOfPairs / 2;
+
+    const row = Array(size[0]).fill(0);
+    gridVisible.set(Array(size[1]).fill(row));
+
+    let indexes = [];
+    let loop = false;
+
+    while (loop) {
+      const rand = Math.floor(Math.random() * (countOfPair - 1) + 1);
+
+      if (rand === 3) {
+        console.log('cont');
+        continue;
+      }
+
+      indexes.push(rand);
+    }
+
+    console.log($gridVisible);
   };
 
   const gameRestart = () => setupGrid();

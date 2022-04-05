@@ -2,12 +2,12 @@ import { writable, readable } from 'svelte/store';
 
 export const isGameRun = writable(true);
 export const gameSettings = writable([
-  { id: 'theme', name: 'Select theme', active: 'Numbers', pool: ['Numbers', 'Icons'] },
+  { id: 'theme', name: 'Select theme', active: 'Icons', pool: ['Numbers', 'Icons'] },
   { id: 'grid', name: 'Grid size', active: '4x4', pool: ['4x4', '6x6'] },
 ]);
 
-export const gridIcon = writable(null);
-export const gridVisible = writable(null);
+export const gridIcon = writable([]);
+export const gridVisible = writable([]);
 
 export const iconDB = readable([
   `<path d="M27,17.999c0-7-5-17-5-17s-4.185,2.395-7.979,6.035C11.755,5.753,10,4.999,10,4.999s-5,6-5,13

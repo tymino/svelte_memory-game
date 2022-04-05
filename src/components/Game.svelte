@@ -48,21 +48,7 @@
       });
     });
 
-    console.log(totalIndexes);
-
-    // while (loop) {
-
-    //
-
-    //   if (rand === 3) {
-    //     console.log('cont');
-    //     continue;
-    //   }
-
-    //   indexes.push(rand);
-    // }
-
-    console.log(grid);
+    gridIcon.set(grid);
   };
 
   const gameRestart = () => setupGrid();
@@ -95,7 +81,9 @@
   <Header on:restart={gameRestart} on:new={gameNew} />
 
   <div class="game">
-    <Grid />
+    {#if $gridIcon}
+      <Grid />
+    {/if}
 
     <div class="game__info">
       <Info title="Time" data={timeElapsed} />

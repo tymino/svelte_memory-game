@@ -16,24 +16,53 @@
     const totalOfPairs = size.reduce((s, n) => s * n);
     const countOfPair = totalOfPairs / 2;
 
+    const counterOfIndexes = new Map();
+    let totalIndexes = 0;
+
     const row = Array(size[0]).fill(0);
     gridVisible.set(Array(size[1]).fill(row));
 
-    let indexes = [];
-    let loop = false;
+    const grid = $gridVisible.map((gridRow) => {
+      return gridRow.map((_) => {
+        let condition = true;
 
-    while (loop) {
-      const rand = Math.floor(Math.random() * (countOfPair - 1) + 1);
+        while (condition) {
+          if (totalIndexes >= totalOfPairs) condition = false;
 
-      if (rand === 3) {
-        console.log('cont');
-        continue;
-      }
+          const rand = Math.floor(Math.random() * (countOfPair - 1 + 1)) + 1;
 
-      indexes.push(rand);
-    }
+          if (!counterOfIndexes.get(rand)) {
+            counterOfIndexes.set(rand, 1);
+            totalIndexes++;
+            condition = false;
+            return rand;
+          }
 
-    console.log($gridVisible);
+          if (counterOfIndexes.get(rand) < 2) {
+            counterOfIndexes.set(rand, 2);
+            totalIndexes++;
+            condition = false;
+            return rand;
+          }
+        }
+      });
+    });
+
+    console.log(totalIndexes);
+
+    // while (loop) {
+
+    //
+
+    //   if (rand === 3) {
+    //     console.log('cont');
+    //     continue;
+    //   }
+
+    //   indexes.push(rand);
+    // }
+
+    console.log(grid);
   };
 
   const gameRestart = () => setupGrid();

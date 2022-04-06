@@ -31,4 +31,10 @@
     display: flex;
     min-width: 280px;
   }
+
+  @media screen and (max-width: 400px) {
+    .buttons {
+      min-width: 180px;
+    }
+  }
 </style>

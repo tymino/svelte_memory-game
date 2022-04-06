@@ -84,11 +84,11 @@
     {#if $gridIcon}
       <Grid />
     {/if}
+  </div>
 
-    <div class="game__info">
-      <Info title="Time" data={timeElapsed} />
-      <Info title="Moves" data={gameMoves} />
-    </div>
+  <div class="game__info">
+    <Info title="Time" data={timeElapsed} />
+    <Info title="Moves" data={gameMoves} />
   </div>
 </main>
 
@@ -98,11 +98,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 100px;
+    padding: 40px 10px;
   }
 
   .game {
     margin-top: 60px;
+    margin-bottom: 60px;
   }
 
   .game__info {

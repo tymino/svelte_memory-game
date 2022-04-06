@@ -4,13 +4,14 @@
 
   --icon-size: 64px;
 
-  --color-dark: #162938;
+  --color-dark: #31485a;
   --color-light: #fcfcfc;
-  --color-primary: #dbe9f1;
-  --color-text: #70a0c5;
+  --color-light-dark: #dfe6ec;
+  --color-primary: #baccd8;
+  --color-text: #83919a;
   --color-secondary: #fda215;
 
-  --color-primary-hover: #d9e5ec;
+  --color-primary-hover: #abc1cf;
   --color-secondary-hover: #f59c17;
 }
 
@@ -28,6 +29,5 @@ html {
 path {
   width: 100%;
   height: 100%;
-  /* fill: var(--color-light); */
-  fill: red;
+  fill: var(--color-light);
 }

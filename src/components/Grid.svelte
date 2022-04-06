@@ -25,15 +25,34 @@
   .grid {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .row {
     display: flex;
     flex-direction: row;
   }
+  .row:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
   .cell {
-    width: 60px;
-    height: 60px;
-    background: var(--color-dark);
+    width: 64px;
+    height: 64px;
+    padding: 12px;
+    background: var(--color-primary);
+    border-radius: 50%;
+  }
+  .cell:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  @media screen and (max-width: 400px) {
+    .cell {
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+    }
   }
 </style>

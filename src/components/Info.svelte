@@ -15,8 +15,8 @@
     justify-content: space-between;
     flex-grow: 1;
     padding: 10px;
-    background: var(--color-primary);
-    border-radius: 4px;
+    background: var(--color-light-dark);
+    border-radius: 6px;
   }
   .block:not(:last-child) {
     margin-right: 10%;

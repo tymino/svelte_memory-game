@@ -2,10 +2,10 @@
   import { createEventDispatcher } from 'svelte';
 
   // primary, secondary, active, default
-  export let id = '';
-  export let name = 'none';
   export let type = 'primary';
   export let style = '';
+  export let id = '';
+  export let name = 'none';
 
   const dispatch = createEventDispatcher();
   const handleClick = () => dispatch('customClick', { id, name });

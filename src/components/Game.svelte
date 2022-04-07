@@ -291,7 +291,7 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, .55);
+    background: rgba(0, 0, 0, 0.55);
   }
 
   .modal__window {
@@ -311,7 +311,7 @@
     margin-bottom: 20px;
     padding: 0 20px;
     color: var(--color-text);
-    font-size: .8rem;
+    font-size: 0.8rem;
     text-align: center;
   }
   .modal__result {

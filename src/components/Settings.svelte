@@ -16,7 +16,7 @@
 
   const handleStartGame = () => {
     isGameRun.set(true);
-  }
+  };
 </script>
 
 <div class="settings">
@@ -35,7 +35,7 @@
     </div>
   {/each}
 
-  <Button name='Start Game' type="secondary" on:customClick={handleStartGame} />
+  <Button name="Start Game" type="secondary" on:customClick={handleStartGame} />
 </div>
 
 <style>

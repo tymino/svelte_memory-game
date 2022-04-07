@@ -3,9 +3,10 @@
   import Button from './Button.svelte';
   import Icon from './Icon.svelte';
   import Info from './Info.svelte';
+  import Score from './Score.svelte';
 
   import { onMount } from 'svelte';
-  import { isGameRun, gameSettings, gridIcon, gridVisible, iconDB } from '../store';
+  import { isGameRun, gameSettings, gridIcon, gridVisible } from '../store';
 
   const TIMER_STEP = 100; // ms
   const CELL_HIDE = 0;
@@ -204,20 +205,7 @@
   </div>
 
   {#if isGameEnd}
-    <div class="modal">
-      <div class="modal__window">
-        <div class="modal__header">You did it!</div>
-        <div class="modal__describe">Game over! Here's how you got on...</div>
-        <div class="modal__result">
-          <Info title="Time Elapsed" style="margin-bottom: 10px" data={timeElapsed} smallTitle={true} />
-          <Info title="Moves Taken" data={countOfPlayerSteps} smallTitle={true} movesText={true} />
-        </div>
-        <div class="modal__button">
-          <Button name="Restart" style="margin-bottom: 10px" type="secondary" on:customClick={gameRestart} />
-          <Button name="Setup New Game" style="color: var(--color-dark)" on:customClick={gameNew} />
-        </div>
-      </div>
-    </div>
+    <Score time={timeElapsed} steps={countOfPlayerSteps} on:restart={gameRestart} on:new={gameNew} />
   {/if}
 </main>
 
@@ -280,42 +268,6 @@
     justify-content: space-between;
     width: 100%;
     max-width: 440px;
-  }
-
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.55);
-  }
-
-  .modal__window {
-    display: flex;
-    flex-direction: column;
-    padding: 30px 20px;
-    background: var(--color-light);
-    border-radius: 10px;
-  }
-
-  .modal__header {
-    margin-bottom: 8px;
-    font-size: 1.4rem;
-    text-align: center;
-  }
-  .modal__describe {
-    margin-bottom: 20px;
-    padding: 0 20px;
-    color: var(--color-text);
-    font-size: 0.8rem;
-    text-align: center;
-  }
-  .modal__result {
-    margin-bottom: 20px;
   }
 
   @media screen and (max-width: 475px) {

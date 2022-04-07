@@ -12,6 +12,7 @@
   const CELL_OPENED = 1;
 
   let countTime = 0;
+  let countOfPlayerSteps = 0;
   let timeElapsed = '00:00';
   let gameMoves = [];
   let blockCellClick = false;
@@ -57,7 +58,13 @@
     gridIcon.set(grid);
   };
 
-  const gameRestart = () => setupGrid();
+  const gameRestart = () => {
+    gameMoves = [];
+    countOfPlayerSteps = 0;
+    countTime = 0;
+
+    setupGrid();
+  };
 
   const gameNew = () => {
     isGameRun.set(false);
@@ -85,7 +92,11 @@
       const secondIcon = $gridIcon[secondMovePosition.x][secondMovePosition.y];
 
       if (firstIcon === secondIcon) {
-        gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell))));
+        gridVisible.set(
+          $gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell))),
+        );
+
+        clearSteps();
       } else {
         blockCellClick = true;
       }
@@ -93,6 +104,8 @@
   };
 
   const handleClickCell = (event) => {
+    countOfPlayerSteps++;
+
     const cellPosX = Number(event.target.dataset.x);
     const cellPosY = Number(event.target.dataset.y);
 
@@ -170,7 +183,7 @@
 
   <div class="game__info">
     <Info title="Time" data={timeElapsed} />
-    <Info title="Moves" data={gameMoves} />
+    <Info title="Moves" data={countOfPlayerSteps} />
   </div>
 </main>
 
@@ -214,7 +227,6 @@
     border-radius: 50%;
     color: var(--color-light);
     font-size: 2.4rem;
-    cursor: pointer;
     user-select: none;
   }
   .cell:not(:last-child) {
@@ -223,6 +235,7 @@
 
   .cellHide {
     background: var(--color-dark);
+    cursor: pointer;
   }
   .cellSelected {
     background: var(--color-secondary);

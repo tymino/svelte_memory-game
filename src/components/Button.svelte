@@ -45,4 +45,13 @@
   .secondary:hover {
     background: var(--color-secondary-hover);
   }
+
+  @media screen and (max-width: 475px) {
+    button {
+      font-size: 0.8rem;
+    }
+    button:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
 </style>

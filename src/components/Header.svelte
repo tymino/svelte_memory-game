@@ -8,6 +8,7 @@
 
   const handleRestart = () => dispatch('restart');
   const handleNewGame = () => dispatch('new');
+  const open = () => dispatch('new');
 </script>
 
 <header>
@@ -25,6 +26,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    max-width: 800px;
   }
 
   .buttons {
@@ -32,7 +34,7 @@
     min-width: 280px;
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 475px) {
     .buttons {
       min-width: 180px;
     }

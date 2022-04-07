@@ -1,5 +1,6 @@
 <script>
   import Header from './Header.svelte';
+  import Button from './Button.svelte';
   import Icon from './Icon.svelte';
   import Info from './Info.svelte';
 
@@ -11,6 +12,11 @@
   const CELL_STEP = -1;
   const CELL_OPENED = 1;
 
+  const GRID_SIZE = $gameSettings[1].active.split('x').map((char) => Number(char));
+  const TOTAL_CELLS = GRID_SIZE.reduce((s, n) => s * n);
+  const TOTAL_PAIRS = TOTAL_CELLS / 2;
+
+  let isGameEnd = false;
   let countTime = 0;
   let countOfPlayerSteps = 0;
   let timeElapsed = '00:00';
@@ -19,24 +25,21 @@
   let animationTime = 0;
 
   const setupGrid = () => {
-    const size = $gameSettings[1].active.split('x').map((str) => Number(str));
-    const totalOfPairs = size.reduce((s, n) => s * n);
-    const countOfPair = totalOfPairs / 2;
-
     const counterOfIndexes = new Map();
+
     let totalIndexes = 0;
 
-    const row = Array(size[0]).fill(CELL_HIDE);
-    gridVisible.set(Array(size[1]).fill(row));
+    const row = Array(GRID_SIZE[0]).fill(CELL_HIDE);
+    gridVisible.set(Array(GRID_SIZE[1]).fill(row));
 
     const grid = $gridVisible.map((gridRow) => {
       return gridRow.map((_) => {
         let condition = true;
 
         while (condition) {
-          if (totalIndexes >= totalOfPairs) condition = false;
+          if (totalIndexes >= TOTAL_CELLS) condition = false;
 
-          const rand = Math.floor(Math.random() * (countOfPair - 1 + 1)) + 1;
+          const rand = Math.floor(Math.random() * (TOTAL_PAIRS - 1 + 1)) + 1;
 
           if (!counterOfIndexes.get(rand)) {
             counterOfIndexes.set(rand, 1);
@@ -62,6 +65,7 @@
     gameMoves = [];
     countOfPlayerSteps = 0;
     countTime = 0;
+    isGameEnd = false;
 
     setupGrid();
   };
@@ -74,12 +78,22 @@
 
   const correctTime = (t) => (t < 10 ? `0${t}` : t);
 
-  const clearSteps = () => {
+  const clearSteps = (isFull) => {
     animationTime = 0;
     gameMoves = [];
     blockCellClick = false;
 
-    gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? 0 : cell))));
+    if (isFull) {
+      gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? 0 : cell))));
+    }
+  };
+
+  const checkEndGame = () => {
+    const bool = $gridVisible.flat(1).reduce((sum, cell) => (sum += cell)) === TOTAL_CELLS;
+
+    if (bool) {
+      isGameEnd = true;
+    }
   };
 
   const checkPairs = () => {
@@ -96,7 +110,8 @@
           $gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell))),
         );
 
-        clearSteps();
+        clearSteps(false);
+        checkEndGame();
       } else {
         blockCellClick = true;
       }
@@ -127,13 +142,15 @@
 
   onMount(() => {
     let timer = setInterval(() => {
-      countTime += 0.1;
+      if (!isGameEnd) {
+        countTime += 0.1;
+      }
 
       if (gameMoves.length === 2) {
         animationTime += TIMER_STEP;
 
         if (animationTime >= 500) {
-          clearSteps();
+          clearSteps(true);
         }
       }
 
@@ -185,6 +202,23 @@
     <Info title="Time" data={timeElapsed} />
     <Info title="Moves" data={countOfPlayerSteps} />
   </div>
+
+  {#if isGameEnd}
+    <div class="modal">
+      <div class="modal__window">
+        <div class="modal__header">You did it!</div>
+        <div class="modal__describe">Game over! Here's how you got on...</div>
+        <div class="modal__result">
+          <Info title="Time Elapsed" style="margin-bottom: 10px" data={timeElapsed} smallTitle={true} />
+          <Info title="Moves Taken" data={countOfPlayerSteps} smallTitle={true} movesText={true} />
+        </div>
+        <div class="modal__button">
+          <Button name="Restart" style="margin-bottom: 10px" type="secondary" on:customClick={gameRestart} />
+          <Button name="Setup New Game" style="color: var(--color-dark)" on:customClick={gameNew} />
+        </div>
+      </div>
+    </div>
+  {/if}
 </main>
 
 <style>
@@ -193,7 +227,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 10px 10px;
+    padding: 40px 20px 10px;
   }
 
   .game {
@@ -241,18 +275,54 @@
     background: var(--color-secondary);
   }
 
-  @media screen and (max-width: 400px) {
+  .game__info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 440px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .55);
+  }
+
+  .modal__window {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    background: var(--color-light);
+    border-radius: 10px;
+  }
+
+  .modal__header {
+    margin-bottom: 8px;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  .modal__describe {
+    margin-bottom: 20px;
+    padding: 0 20px;
+    color: var(--color-text);
+    font-size: .8rem;
+    text-align: center;
+  }
+  .modal__result {
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 475px) {
     .cell {
       width: 50px;
       height: 50px;
       padding: 10px;
     }
-  }
-
-  .game__info {
-    display: flex;
-    justify-content: space-between;
-
-    width: 500px;
   }
 </style>

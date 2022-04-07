@@ -6,9 +6,16 @@
   import { onMount } from 'svelte';
   import { isGameRun, gameSettings, gridIcon, gridVisible, iconDB } from '../store';
 
+  const TIMER_STEP = 100; // ms
+  const CELL_HIDE = 0;
+  const CELL_STEP = -1;
+  const CELL_OPENED = 1;
+
   let countTime = 0;
   let timeElapsed = '00:00';
   let gameMoves = [];
+  let blockCellClick = false;
+  let animationTime = 0;
 
   const setupGrid = () => {
     const size = $gameSettings[1].active.split('x').map((str) => Number(str));
@@ -18,7 +25,7 @@
     const counterOfIndexes = new Map();
     let totalIndexes = 0;
 
-    const row = Array(size[0]).fill(0);
+    const row = Array(size[0]).fill(CELL_HIDE);
     gridVisible.set(Array(size[1]).fill(row));
 
     const grid = $gridVisible.map((gridRow) => {
@@ -60,14 +67,28 @@
 
   const correctTime = (t) => (t < 10 ? `0${t}` : t);
 
+  const clearSteps = () => {
+    animationTime = 0;
+    gameMoves = [];
+    blockCellClick = false;
+
+    gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? 0 : cell))));
+  };
+
   const checkPairs = () => {
     if (gameMoves.length === 2) {
+      animationTime = 0;
+
       const [firstMovePosition, secondMovePosition] = gameMoves;
 
       const firstIcon = $gridIcon[firstMovePosition.x][firstMovePosition.y];
       const secondIcon = $gridIcon[secondMovePosition.x][secondMovePosition.y];
 
-      console.log(firstIcon, secondIcon);
+      if (firstIcon === secondIcon) {
+        gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell))));
+      } else {
+        blockCellClick = true;
+      }
     }
   };
 
@@ -75,11 +96,11 @@
     const cellPosX = Number(event.target.dataset.x);
     const cellPosY = Number(event.target.dataset.y);
 
-    let localGrid = $gridVisible.map((row, rowIndex) => {
-      return row.map((col, colIndex) => {
-        if (rowIndex === cellPosX && colIndex === cellPosY) {
-          gameMoves.push({ x: rowIndex, y: colIndex });
-          return -1;
+    let localGrid = $gridVisible.map((row, iX) => {
+      return row.map((col, iY) => {
+        if (iX === cellPosX && iY === cellPosY) {
+          gameMoves.push({ x: iX, y: iY });
+          return CELL_STEP;
         }
 
         return col;
@@ -93,13 +114,21 @@
 
   onMount(() => {
     let timer = setInterval(() => {
-      countTime++;
+      countTime += 0.1;
+
+      if (gameMoves.length === 2) {
+        animationTime += TIMER_STEP;
+
+        if (animationTime >= 500) {
+          clearSteps();
+        }
+      }
 
       const minutes = Math.floor(countTime / 60);
       const seconds = Math.floor(countTime % 60);
 
       timeElapsed = `${correctTime(minutes)}:${correctTime(seconds)}`;
-    }, 1000);
+    }, TIMER_STEP);
 
     setupGrid();
 
@@ -119,8 +148,8 @@
               <div
                 class="cell"
                 class:cellHide={!cell}
-                class:cellSelected={cell === -1}
-                on:click={!cell ? handleClickCell : null}
+                class:cellSelected={cell === CELL_STEP}
+                on:click={!cell && !blockCellClick ? handleClickCell : null}
                 data-x={rowIndex}
                 data-y={colIndex}
               >

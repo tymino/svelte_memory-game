@@ -13,7 +13,9 @@
   const CELL_STEP = -1;
   const CELL_OPENED = 1;
 
-  const GRID_SIZE = $gameSettings[1].active.split('x').map((char) => Number(char));
+  const GRID_SIZE = $gameSettings[1].active
+    .split('x')
+    .map((char) => Number(char));
   const TOTAL_CELLS = GRID_SIZE.reduce((s, n) => s * n);
   const TOTAL_PAIRS = TOTAL_CELLS / 2;
 
@@ -85,12 +87,17 @@
     blockCellClick = false;
 
     if (isFull) {
-      gridVisible.set($gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? 0 : cell))));
+      gridVisible.set(
+        $gridVisible.map((row) =>
+          row.map((cell) => (cell === CELL_STEP ? 0 : cell)),
+        ),
+      );
     }
   };
 
   const checkEndGame = () => {
-    const bool = $gridVisible.flat(1).reduce((sum, cell) => (sum += cell)) === TOTAL_CELLS;
+    const bool =
+      $gridVisible.flat(1).reduce((sum, cell) => (sum += cell)) === TOTAL_CELLS;
 
     if (bool) {
       isGameEnd = true;
@@ -108,7 +115,9 @@
 
       if (firstIcon === secondIcon) {
         gridVisible.set(
-          $gridVisible.map((row) => row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell))),
+          $gridVisible.map((row) =>
+            row.map((cell) => (cell === CELL_STEP ? CELL_OPENED : cell)),
+          ),
         );
 
         clearSteps(false);
@@ -200,12 +209,21 @@
   </div>
 
   <div class="game__info">
-    <Info title="Time" data={timeElapsed} />
-    <Info title="Moves" data={countOfPlayerSteps} />
+    <div class="game__info--wrapper">
+      <Info title="Time" data={timeElapsed} />
+    </div>
+    <div class="game__info--wrapper">
+      <Info title="Moves" data={countOfPlayerSteps} />
+    </div>
   </div>
 
   {#if isGameEnd}
-    <Score time={timeElapsed} steps={countOfPlayerSteps} on:restart={gameRestart} on:new={gameNew} />
+    <Score
+      time={timeElapsed}
+      steps={countOfPlayerSteps}
+      on:restart={gameRestart}
+      on:new={gameNew}
+    />
   {/if}
 </main>
 
@@ -265,9 +283,17 @@
 
   .game__info {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     width: 100%;
     max-width: 440px;
+  }
+
+  .game__info--wrapper {
+    width: 100%;
+  }
+
+  .game__info > div {
+    margin-right: 10px;
   }
 
   @media screen and (max-width: 475px) {

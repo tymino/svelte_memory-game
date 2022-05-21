@@ -29,9 +29,6 @@
     background: var(--color-light-dark);
     border-radius: 6px;
   }
-  .block:not(:last-child) {
-    margin-right: 10%;
-  }
 
   .block__title {
     color: var(--color-text);

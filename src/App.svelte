@@ -5,8 +5,20 @@
   import { isGameRun } from './store';
 </script>
 
-{#if $isGameRun}
-  <Game />
-{:else}
-  <Menu />
-{/if}
+<div class="app">
+  {#if $isGameRun}
+    <Game />
+  {:else}
+    <Menu />
+  {/if}
+</div>
+
+<style>
+  .app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+</style>

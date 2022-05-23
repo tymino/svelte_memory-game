@@ -44,7 +44,7 @@
   @media screen and (max-width: 475px) {
     .block {
       flex-direction: column;
-      width: 200px;
+      width: 100%;
     }
     .block__title {
       margin-bottom: 4px;

@@ -26,9 +26,17 @@
       <div class="option__buttons">
         {#each option.pool as title (title)}
           {#if option.active === title}
-            <Button id={option.id} name={title} type="active" />
+            <div class="option__buttons--wrapper">
+              <Button id={option.id} name={title} type="active" />
+            </div>
           {:else}
-            <Button id={option.id} name={title} on:customClick={handleSwitchSetting} />
+            <div class="option__buttons--wrapper">
+              <Button
+                id={option.id}
+                name={title}
+                on:customClick={handleSwitchSetting}
+              />
+            </div>
           {/if}
         {/each}
       </div>
@@ -56,5 +64,30 @@
   .option__buttons {
     display: flex;
     min-width: 320px;
+  }
+  .option__buttons--wrapper {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 475px) {
+    .settings {
+      padding: 20px;
+    }
+    .option:not(:last-child) {
+      margin-bottom: 28px;
+    }
+    .option__name {
+      text-align: center;
+    }
+    .option__buttons {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-width: 200px;
+    }
+
+    .option__buttons--wrapper:not(:last-child) {
+      margin-bottom: 10px;
+    }
   }
 </style>

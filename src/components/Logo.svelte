@@ -21,4 +21,9 @@
       font-size: 1.6rem;
     }
   }
+  @media screen and (max-width: 350px) {
+    .logo {
+      font-size: .6rem;
+    }
+  }
 </style>

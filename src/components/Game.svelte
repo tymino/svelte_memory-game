@@ -1,6 +1,5 @@
 <script>
   import Header from './Header.svelte';
-  import Button from './Button.svelte';
   import Icon from './Icon.svelte';
   import Info from './Info.svelte';
   import Score from './Score.svelte';
@@ -176,7 +175,7 @@
   });
 </script>
 
-<main class="container">
+<main class="content">
   <Header on:restart={gameRestart} on:new={gameNew} />
 
   <div class="game">
@@ -206,14 +205,14 @@
         {/each}
       </div>
     {/if}
-  </div>
 
-  <div class="game__info">
-    <div class="game__info--wrapper">
-      <Info title="Time" data={timeElapsed} />
-    </div>
-    <div class="game__info--wrapper">
-      <Info title="Moves" data={countOfPlayerSteps} />
+    <div class="game__info">
+      <div class="game__info--wrapper">
+        <Info title="Time" data={timeElapsed} />
+      </div>
+      <div class="game__info--wrapper">
+        <Info title="Moves" data={countOfPlayerSteps} />
+      </div>
     </div>
   </div>
 
@@ -228,24 +227,22 @@
 </main>
 
 <style>
-  .container {
+  .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    width: 100vw;
     padding: 40px 20px 10px;
   }
 
   .game {
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin: 60px auto;
+    max-width: 500px;
   }
 
   .grid {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   .row {
@@ -262,6 +259,8 @@
     align-items: center;
     width: 64px;
     height: 64px;
+    max-width: 80px;
+    max-height: 80px;
     padding: 12px;
     background: var(--color-primary);
     border-radius: 50%;
@@ -283,16 +282,14 @@
 
   .game__info {
     display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 440px;
+    margin-top: 40px;
   }
 
   .game__info--wrapper {
     width: 100%;
   }
 
-  .game__info > div {
+  .game__info--wrapper:not(:last-child) {
     margin-right: 10px;
   }
 
@@ -301,6 +298,25 @@
       width: 50px;
       height: 50px;
       padding: 10px;
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .cell {
+      width: 40px;
+      height: 40px;
+    }
+
+    .row:not(:last-child) {
+      margin-bottom: 6px;
+    }
+    .cell:not(:last-child) {
+      margin-right: 6px;
+    }
+  }
+  @media screen and (max-width: 350px) {
+    .cell {
+      width: 32px;
+      height: 32px;
     }
   }
 </style>

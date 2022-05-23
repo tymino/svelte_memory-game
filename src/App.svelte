@@ -17,8 +17,6 @@
   .app {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 800px;
   }
 </style>

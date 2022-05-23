@@ -1,6 +1,6 @@
 import { writable, readable } from 'svelte/store';
 
-export const isGameRun = writable(false);
+export const isGameRun = writable(true);
 export const gameSettings = writable([
   { id: 'theme', name: 'Select theme', active: 'Icons', pool: ['Numbers', 'Icons'] },
   { id: 'grid', name: 'Grid size', active: '4x4', pool: ['4x4', '6x6'] },
